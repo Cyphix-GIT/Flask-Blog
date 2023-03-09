@@ -1,0 +1,18 @@
+:root {
+  /* Dark theme */
+  --dark-background: #27272a;
+  --dark-foregeound: #e2e8f0;
+  --dark-text: #e2e8f0;
+  --dark-text-lighter: #6e6e6e;
+  --dark-primary: #3839ff;
+  /* Light theme */
+  --current-background: #e5e7eb;
+  --current-foregeound: #18181b;
+  --current-text: #18181b;
+  --current-text-lighter: #4d5050;
+  --light-primary: #00c3ff;
+  /* Defaults */
+  --color-primary: #4f46e5;
+  --color-secondary: #818cf8;
+  --gradeint-primary: linear-gradient(#163de7, #00c3ff);
+}

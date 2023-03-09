@@ -1,0 +1,14 @@
+{% extends "base.html" %}{%block head%}{%endblock%}{% block body %}
+<h1>All Blog Posts</h1>
+<h2>You're logged in as {{current_username}}</h2>
+{% for post in posts %}
+<div class="post-card">
+    <h2>{{post.title}}</h2>
+    <p>Author: {{post.author}}</p>
+    <p>Created on: {{post.created_at.strftime("%d/%m/%y")}}</p>
+    <p>Created at: {{post.created_at.strftime("%M:%H")}}</p>
+    <div class="post__content">{{post.content|safe}}</div>
+</div>
+{% endfor %}
+
+{% endblock %}

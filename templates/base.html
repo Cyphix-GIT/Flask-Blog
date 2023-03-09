@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{page_title}}</title>
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='img/favicon.ico')}}"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet.css')}}" />
+    {% block head %} {% endblock %}
+  </head>
+  <header class="header">
+    <div class="header__inner">
+      <a href="{{url_for('index')}}"
+        >Home</a>
+      <nav class="nav">
+        <ul class="nav__list">
+          <li class="nav__list-item">
+            <a class="nav__list-link" href="{{url_for("browse")}}">Browse</a>
+          </li>
+          <li class="nav__list-item">
+            <a class="nav__list-link" href="#">Search</a>
+          </li>
+          {% if current_user.privilege_level == "Admin" %}
+          Add stuff in here
+          {% endif %}
+          {% if current_user.is_authenticated %}
+          <li class="nav__list-item">
+            <div class="dropdown">
+              <button class="dropbtn">{{current_username}}<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>              
+              </button>
+              <div class="dropdown-content">
+                <a href="#">View Profile</a>
+                <a href="{{url_for('create')}}">Create Post</a>
+                <a href="{{url_for('my_posts')}}">My Posts</a>
+                <a href="{{url_for('logout')}}">Logout</a>
+              </div>
+            </div>
+            {% else %}
+            <a class="nav__list-link" href="{{url_for('login')}}">Login</a>
+            {% endif %}
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  {% block header %}{% endblock %}
+  <body>
+    <div class="content">
+    {% block body %} {% endblock %}
+  </div>
+  </body>
+</html>
