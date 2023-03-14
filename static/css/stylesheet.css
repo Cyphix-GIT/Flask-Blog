@@ -181,3 +181,34 @@ body {
 .nav .dropdown:hover .dropdown-content {
   display: block;
 }
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  border: 2px solid red;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 40%;
+  min-height: 80%;
+  border: 2px solid green;
+}
+
+.post__content-preview {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.post__content-preview * {
+  font-size: 1rem;
+}
+.post__content-preview * img {
+  display: none;
+}

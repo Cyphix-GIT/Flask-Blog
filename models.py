@@ -31,7 +31,7 @@ class PostModel(db.Model):
     updated_at = db.Column(db.DateTime, onupdate=func.now())
     # user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     author = db.Column(db.String(100), db.ForeignKey('users.username'), nullable=False)
-    status = db.Column(db.String, default="Draft")
+    status = db.Column(db.String, default="Draft") #Could be Draft, Review, Published, or Archived
 
 
 

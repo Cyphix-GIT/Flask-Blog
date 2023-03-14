@@ -12,11 +12,10 @@
     <p>Slug: {{post.slug}}</p>
     <p>Created on: {{post.created_at.strftime("%d/%m/%y")}}</p>
     <p>Created at: {{post.created_at.strftime("%M:%H")}}</p>
-    <div class="post__content">{{post.content|safe}}</div>
+    <div class="post__content-preview">{{post.content|safe}}</div>
     <div class="button-container">
-        <button><a href="#">View Post</a></button>
+        <button><a href="{{url_for("view_post", slug=post.slug)}}">View Post</a></button>
         <button><a href="{{url_for("edit", slug=post.slug)}}">Edit Post</a></button>
-        <button><a href="{{url_for("delete", id=post.id)}}">Delete Post</a></button> 
     </div>
 </div>
 {% endfor %}

@@ -1,4 +1,14 @@
 {% extends "base.html" %}{%block head%}{%endblock%}{% block body %}
+<h1>Edit Post</h1>
+<div class="button-container">
+    <button><a href="{{url_for("view_post", slug=post.slug)}}">View Post</a></button>
+    {% if post.status == "Draft" %}
+    <button><a href="{{url_for("change_status", slug=post.slug)}}">Submit for review</a></button>
+    {% else %}
+    <button><a href="{{url_for("change_status", slug=post.slug)}}">Make post private</a></button>
+    {% endif %}
+    <button><a href="{{url_for("delete", id=post.id)}}">Delete Post</a></button> 
+</div>
 <div class="form-container">
     <h1>Create Blog Post</h1>
     <form method="post">
