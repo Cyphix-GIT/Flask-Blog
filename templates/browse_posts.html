@@ -6,11 +6,11 @@
     <h2>{{post.title}}</h2>
     <p>Author: {{post.author}}</p>
     <p>Created on: {{post.created_at.strftime("%d/%m/%y")}}</p>
-    <p>Created at: {{post.created_at.strftime("%M:%H")}}</p>
+    <p>Created at: {{post.created_at.strftime("%H:%M")}}</p>
     <div class="post__content-preview">{{post.content|safe}}</div>
     <div class="button-container">
         <button><a href="{{url_for("view_post", slug=post.slug)}}">View Post</a></button>
-        {% if post.author == current_username or current_user.privelege_level == "Admin" %}
+        {% if post.author == current_username or current_user.privilege_level == "Admin" %}
         <button><a href="{{url_for("edit", slug=post.slug)}}">Edit Post</a></button>
         {% endif %}
 </div>

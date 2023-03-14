@@ -1,1 +1,19 @@
-{{post.id}} {{post.title}} {{post.content|safe}} {{post.author}} {{post.created_at}} {{post.updated_at}}
+{% extends "base.html" %}{%block head%}{%endblock%}{% block body %}
+<div class="content-wrapper">
+    <div class="post-container">
+        <h1 class="post-title">{{post.title}}</h1>
+    <div class="details-container">
+    <p class="post-author">By {{post.author}}</p>
+    <p class="post-date">Published: {{post.created_at.strftime("%m/%d/%Y")}}</p>
+</div>
+<hr>
+    <div class="post-content">{{post.content|safe}}</div>
+</div>
+<div class="related-post-container">
+    <h2>Recent Posts</h2>
+    <div class="related-post">
+        This is where some other posts would go
+    </div>
+</div>
+</div>
+{% endblock %}

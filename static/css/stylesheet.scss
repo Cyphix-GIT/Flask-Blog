@@ -156,3 +156,23 @@ body {
     }
   }
 }
+
+.content-wrapper{
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.details-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+hr{
+  margin: 1rem 0 2rem 0;
+}
+
+.post-content *{
+  line-height: 1.6em;
+  margin: 0 0 15px;
+}

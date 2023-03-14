@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, flash, session, jsonify
 from flask_login import login_required, current_user, login_user, logout_user
+from sqlalchemy import desc
 from models import UserModel, db, login, PostModel
 from forms import LoginForm, RegisterForm, BlogForm
 from flask_ckeditor import CKEditor
@@ -19,6 +20,9 @@ login.login_view = "login"
 ckeditor = CKEditor(app)
 
 
+
+
+
 def get_current_username():
     if current_user.is_authenticated:
         return current_user.username
@@ -28,7 +32,7 @@ def get_current_username():
 
 @app.route("/") 
 def index():
-    return render_template("index.html", current_username=get_current_username())
+    return render_template("index.html", current_username=get_current_username(), page_title = "Home")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -40,7 +44,7 @@ def login():
                 login_user(user)
                 return redirect("/")
         return "<h1>Invalid username or password</h1>"
-    return render_template("login.html", form=form, current_username=get_current_username())
+    return render_template("login.html", form=form, current_username=get_current_username(), page_title = "Login")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -62,7 +66,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         return redirect("/login")
-    return render_template("register.html", message=message, form=form)
+    return render_template("register.html", message=message, form=form, page_title = "Register")
 
 
 @app.route("/logout")
@@ -89,12 +93,12 @@ def create():
         db.session.add(post)
         db.session.commit()
         return redirect("/")
-    return render_template("create.html", form=form, current_username=get_current_username())
+    return render_template("create.html", form=form, current_username=get_current_username(), page_title = "Create Post")
 
 @app.route("/my-posts")
 def my_posts():
-    posts = PostModel.query.filter_by(author=get_current_username()).all()
-    return render_template("my-posts.html", posts=posts, current_username=get_current_username())
+    posts = PostModel.query.filter_by(author=get_current_username()).order_by(desc(PostModel.created_at)).all()
+    return render_template("my-posts.html", posts=posts, current_username=get_current_username(), page_title = "My Posts")
 
 @app.route("/edit/<slug>", methods=["GET", "POST"])
 @login_required
@@ -113,7 +117,7 @@ def edit(slug):
         db.session.commit()
         return redirect("/my-posts")
     form.content.data = post.content
-    return render_template("edit.html", post=post, form=form, current_username=get_current_username())
+    return render_template("edit.html", post=post, form=form, current_username=get_current_username(), page_title = f"Edit {post.title}")
 
 @app.route("/delete/<id>")
 @login_required
@@ -128,14 +132,14 @@ def delete(id):
 
 @app.route("/posts")
 def browse():
-    posts = PostModel.query.all()
-    return render_template("browse_posts.html", posts=posts, current_username=get_current_username())
+    posts = PostModel.query.order_by(desc(PostModel.created_at)).all()
+    return render_template("browse_posts.html", posts=posts, current_username=get_current_username(), page_title = "Browse Posts")
 
 @app.route("/posts/<slug>")
 def view_post(slug):
     post = PostModel.query.filter_by(slug=slug).first()
     if post.status == "Draft":
-        return render_template("post.html", post=post, current_username=get_current_username())
+        return render_template("post.html", post=post, current_username=get_current_username(), page_title = post.title)
     return redirect("/")
 
 @app.route("/posts/<slug>/change-status")
