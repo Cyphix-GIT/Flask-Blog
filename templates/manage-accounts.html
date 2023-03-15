@@ -1,0 +1,30 @@
+{% extends "base.html" %}{%block head%}{%endblock%}{% block body %}
+<div class="table-container">
+    <table class="table">
+      <tr>
+        <th class="table-heading">UserID</th>
+        <th class="table-heading">Username</th>
+        <th class="table-heading">Controls</th>
+      </tr>
+      {% for user in users %}
+      <tr>
+        <td><a href="#">{{user.id}}</a></td>
+        <td>{{user.username}}</td>
+        <td>
+          <a href="{{url_for("reset_password", id=user.id)}}">Reset Password</a>
+          <a href="{{url_for("delete_account", id=user.id)}}">Delete Account and all it's posts</a>
+          <a href="{{url_for("change_privilege", id=user.id)}}">
+          {% if user.privilege_level == "Admin" %}
+            Revoke Admin Privileges
+          {% else %}
+          Grant Admin Privileges
+          {% endif %}
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    
+  </div>
+
+{% endblock %}

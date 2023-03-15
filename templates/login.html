@@ -1,26 +1,26 @@
 {% extends "base.html" %}{%block head%}{%endblock%}{% block body %}
 <div class="login-container">
-    <div class="form-container">
+  <div class="form-container">
     <h1>Login</h1>
     <form method="post">
-        {{form.hidden_tag()}}
-        <div class="text-field">
-            <label>Username</label>
-            <br>
-            {{form.username()}}
-        </div>
-        <div class="text-field">
-            <label for="password">Password</label>
-            <br>
-            {{ form.password() }}
-        </div>
-        <!-- <div class="true">Forgot Password?</div> -->
-        <div class="error">{{message}}</div>
-        <input type="submit" value="Login">
-        <div class="signupSec">
-            Not a member? <a href="{{url_for('register')}}">Sign up</a>
-        </div>
+      {{form.hidden_tag()}}
+      <div class="text-field">
+        <label>Username</label>
+        <br />
+        {{form.username()}}
+      </div>
+      <div class="text-field">
+        <label for="password">Password</label>
+        <br />
+        {{ form.password() }}
+      </div>
+      <!-- <div class="true">Forgot Password?</div> -->
+      <div class="error">{{message}}</div>
+      <input type="submit" value="Login" />
+      <div class="signupSec">
+        Not a member? <a href="{{url_for('register')}}">Sign up</a>
+      </div>
     </form>
-</div>
+  </div>
 </div>
 {% endblock %}

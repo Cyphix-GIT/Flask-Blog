@@ -25,7 +25,17 @@
             <a class="nav__list-link" href="#">Search</a>
           </li>
           {% if current_user.privilege_level == "Admin" %}
-          Add stuff in here
+          <li class="nav__list-item">
+            <div class="dropdown">
+              <button class="dropbtn">Admin</button>
+              <div class="dropdown-content">
+                <a href="{{url_for("manage_accounts")}}">Manage Accounts</a>
+                <a href="#">Manage Posts</a>
+                <a href="{{url_for("review_posts")}}">Review Posts</a>
+                <a href="{{url_for('logout')}}">Logout</a>
+              </div>
+            </div>
+          </li>
           {% endif %}
           {% if current_user.is_authenticated %}
           <li class="nav__list-item">

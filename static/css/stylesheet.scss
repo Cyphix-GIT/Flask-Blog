@@ -125,54 +125,54 @@ body {
 
 // Login styling
 
-.login-container{
+.login-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
   width: 100%;
-  border: 2px solid red
+  border: 2px solid red;
 }
 
-.form-container{
+.form-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   min-width: 40%;
   min-height: 80%;
-  border: 2px solid green
+  border: 2px solid green;
 }
 
-.post__content-preview{
+.post__content-preview {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  overflow:hidden;
-  & *{
+  overflow: hidden;
+  & * {
     font-size: 1rem;
 
-    & img{
+    & img {
       display: none;
     }
   }
 }
 
-.content-wrapper{
+.content-wrapper {
   max-width: 1024px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
-.details-container{
+.details-container {
   display: flex;
   justify-content: space-between;
 }
 
-hr{
+hr {
   margin: 1rem 0 2rem 0;
 }
 
-.post-content *{
+.post-content * {
   line-height: 1.6em;
   margin: 0 0 15px;
 }

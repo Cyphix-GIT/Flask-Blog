@@ -7,18 +7,18 @@ $(document).ready(function () {
       data: {
         user_input: $(this).val(),
       },
-      success: function(response){
+      success: function (response) {
         if (response == "True") {
           $("#slug").css("border", "2px solid red");
           $("#slug").css("color", "red");
-        } else {    
-            $("#slug").css("border", "2px solid green");
-            $("#slug").css("color", "green");
+        } else {
+          $("#slug").css("border", "2px solid green");
+          $("#slug").css("color", "green");
         }
       },
-        error: function(error){
-        console.log("Error")
-        }
+      error: function (error) {
+        console.log("Error");
+      },
     });
   });
 });

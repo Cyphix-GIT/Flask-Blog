@@ -1,0 +1,21 @@
+{% extends "base.html" %}{%block head%}{%endblock%}{% block body %}
+<h1>Pending Blog Posts</h1>
+{% if posts %}
+{% for post in posts %}
+<div class="post-card">
+    <h2>{{post.title}}</h2>
+    <p>Author: {{post.author}}</p>
+    <p>Created on: {{post.created_at.strftime("%d/%m/%y")}}</p>
+    <p>Created at: {{post.created_at.strftime("%H:%M")}}</p>
+    <div class="post__content-preview">{{post.content|safe}}</div>
+    <div class="button-container">
+        <button><a href="{{url_for("view_post", slug=post.slug)}}">Preview Post</a></button>
+        <button><a href="{{url_for("edit", slug=post.slug)}}">Edit Post</a></button>
+        <button><a href="{{url_for("publish_post", slug=post.slug)}}">Publish Post</a></button>
+</div>
+{% endfor %}
+{% else %}
+<p>No posts to review</p>
+{% endif %}
+
+{% endblock %}
