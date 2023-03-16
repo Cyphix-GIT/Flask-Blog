@@ -4,6 +4,7 @@ from sqlalchemy import desc
 from models import UserModel, db, login, PostModel
 from forms import LoginForm, RegisterForm, BlogForm
 from flask_ckeditor import CKEditor
+import bleach
 
 
 app = Flask(__name__)
@@ -25,6 +26,50 @@ def get_current_username():
         return current_user.username
     else:
         return "Guest"
+
+
+def sanitize_html(html):
+    allowed_tags = [
+        "a",
+        "abbr",
+        "acronym",
+        "b",
+        "blockquote",
+        "br",
+        "code",
+        "dd",
+        "del",
+        "div",
+        "dl",
+        "dt",
+        "em",
+        "em",
+        "h1",
+        "h2",
+        "h3",
+        "hr",
+        "i",
+        "img",
+        "li",
+        "ol",
+        "p",
+        "pre",
+        "s",
+        "strong",
+        "sub",
+        "sup",
+        "table",
+        "tbody",
+        "td",
+        "th",
+        "thead",
+        "tr",
+        "ul",
+    ]
+    allowed_attrs = {"*": ["class"], "a": ["href", "rel"], "img": ["src", "alt"]}
+    return bleach.clean(
+        bleach.linkify(html), tags=allowed_tags, attributes=allowed_attrs
+    )
 
 
 @app.route("/")
@@ -96,6 +141,7 @@ def create():
 
     form = BlogForm()
     if form.validate_on_submit():  # Change me
+        form.content.data = sanitize_html(form.content.data)
         post = PostModel(
             title=form.title.data,
             slug=form.slug.data.lower().replace(" ", "-"),
@@ -132,9 +178,8 @@ def my_posts():
 @login_required
 def edit(slug):
     post = PostModel.query.filter_by(slug=slug).first()
-    if (
-        post.author != get_current_username()
-        and current_user.privilege_level != "Admin"
+    if post.author != get_current_username() and (
+        post.status != "Draft" and current_user.privilege_level != "Admin"
     ):
         return redirect("/")
 
@@ -143,7 +188,7 @@ def edit(slug):
         edit = PostModel.query.filter_by(slug=slug).first()
         edit.title = form.title.data
         edit.slug = slug = form.slug.data.lower().replace(" ", "-")
-        edit.content = form.content.data
+        edit.content = sanitize_html(form.content.data)
         edit.status = "Draft"
         db.session.add(edit)
         db.session.commit()
